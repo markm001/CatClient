@@ -1,6 +1,6 @@
 package com.ccat.annotation;
 
-import com.ccat.util.GsonHandler;
+import com.ccat.util.CGsonHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,12 +12,15 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Parses Annotations to the respective AnnotationData
+ */
 public class AnnotationParser {
     private static final Logger logger = LoggerFactory.getLogger(AnnotationParser.class);
 
     private final static Pattern templatePattern = Pattern.compile("\\{(\\w+)}");
     private static final Map<Class<? extends Annotation>, String> httpAnnotations = new HashMap<>();
-    private static final GsonHandler gsonHandler = GsonHandler.getInstance();
+    private static final CGsonHandler gsonHandler = CGsonHandler.getInstance();
 
     static {
         httpAnnotations.put(GET.class, "GET");
@@ -52,7 +55,7 @@ public class AnnotationParser {
 
         if(!bodyTemplate.isEmpty()) {
             Object body = args[args.length - 1];
-            String jsonBody = gsonHandler.serialize(body);
+            String jsonBody = gsonHandler.toJson(body, body.getClass());
 
             return new AnnotationData(httpMethod,uri, Optional.of(jsonBody));
         }

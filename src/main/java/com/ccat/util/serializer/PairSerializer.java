@@ -8,6 +8,11 @@ import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
 
+/**
+ * Utility Class - allows serialization of Key Value pairs
+ * @param <K>
+ * @param <V>
+ */
 public class PairSerializer<K,V> implements JsonSerializer<Pair<K,V>> {
     @Override
     public JsonElement serialize(Pair<K,V> src, Type typeOfSrc, JsonSerializationContext context) {

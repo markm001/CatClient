@@ -7,11 +7,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Parses the application.properties file provided in the resources.
+ * TODO: Change this to a non-static class -> .properties file name should be provided by User
+ */
 public class PropertiesParser {
     private static final Logger logger = LoggerFactory.getLogger(PropertiesParser.class);
 
     private static final Properties PROPERTIES = new Properties();
     private static PropertiesParser INSTANCE;
+
     private PropertiesParser() {
         String propertiesFileName = "application.properties";
         try(InputStream input =

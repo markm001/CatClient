@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+/**
+ * Send prepared request and receive response
+ */
 public class ApiHttpClient {
     private static final Logger logger = LoggerFactory.getLogger(ApiHttpClient.class);
 

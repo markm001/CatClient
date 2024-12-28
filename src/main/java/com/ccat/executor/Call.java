@@ -3,6 +3,10 @@ package com.ccat.executor;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+/**
+ * Call wrapper
+ * @param <T> Type
+ */
 public class Call<T> {
     private final Supplier<T> execution;
 

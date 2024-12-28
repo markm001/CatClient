@@ -6,6 +6,9 @@ import org.slf4j.LoggerFactory;
 import java.net.URI;
 import java.net.http.HttpRequest;
 
+/**
+ * Creates an HttpRequest Object from the provided annotation data
+ */
 public class HttpRequestBuilder {
     private static final Logger logger = LoggerFactory.getLogger(HttpRequestBuilder.class);
 

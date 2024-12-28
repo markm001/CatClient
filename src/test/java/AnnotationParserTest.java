@@ -2,7 +2,7 @@ import com.ccat.annotation.AnnotationData;
 import com.ccat.annotation.AnnotationParser;
 import com.ccat.service.SimpleRequest;
 import com.ccat.service.SimpleService;
-import com.ccat.util.GsonHandler;
+import com.ccat.util.CGsonHandler;
 import com.ccat.util.HttpRequestBuilder;
 import org.junit.jupiter.api.Test;
 import util.FlowSubscriber;
@@ -44,7 +44,9 @@ public class AnnotationParserTest {
         Method method = SimpleService.class.getMethod("createPost", SimpleRequest.class);
         String body = "TEST_BODY";
         SimpleRequest req = new SimpleRequest(body);
-        String expected = GsonHandler.getInstance().serialize(req);
+
+        CGsonHandler gsonHandler = CGsonHandler.getInstance();
+        String expected = gsonHandler.toJson(req, req.getClass());
 
         Object[] args = {"posts", req};
         String auth = "123";
@@ -76,7 +78,9 @@ public class AnnotationParserTest {
         Method method = SimpleService.class.getMethod("createPost", SimpleRequest.class);
         String body = "TEST_BODY";
         SimpleRequest req = new SimpleRequest(body);
-        String expected = GsonHandler.getInstance().serialize(req);
+
+        CGsonHandler gsonHandler = CGsonHandler.getInstance();
+        String expected = gsonHandler.toJson(req, req.getClass());
 
         Object[] args = {"posts", req};
         String auth = "123";
