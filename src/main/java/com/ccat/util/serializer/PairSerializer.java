@@ -9,9 +9,9 @@ import com.google.gson.JsonSerializer;
 import java.lang.reflect.Type;
 
 /**
- * Utility Class - allows serialization of Key Value pairs
- * @param <K>
- * @param <V>
+ * Utility Class - allows serialization of Key Value pairs.
+ * @param <K> Type-Key
+ * @param <V> Type-Value
  */
 public class PairSerializer<K,V> implements JsonSerializer<Pair<K,V>> {
     @Override

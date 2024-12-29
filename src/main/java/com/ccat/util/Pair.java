@@ -4,8 +4,8 @@ package com.ccat.util;
  * Utility class for Key Value pairs.
  * @param key
  * @param value
- * @param <K>
- * @param <V>
+ * @param <K> Key-Type
+ * @param <V> Value-Type
  */
 public record Pair<K,V>(
         K key,

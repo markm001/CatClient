@@ -31,6 +31,13 @@ public class AnnotationParser {
         httpAnnotations.put(UPDATE.class, "UPDATE");
     }
 
+    /**
+     * Parses the provided Data to an AnnotationData Object, which is used within the Proxy Method.
+     * @param method GET, DELETE, POST, PUT, PATCH, UPDATE
+     * @param baseUrl Address where the request is sent to
+     * @param args Arguments that will be parsed and put set into the URL
+     * @return AnnotationData Object containing the necessary information
+     */
     public static AnnotationData parseAnnotationData(Method method, String baseUrl, Object[] args) {
         Annotation annotation;
         try{

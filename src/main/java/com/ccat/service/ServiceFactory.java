@@ -18,6 +18,10 @@ import static com.ccat.util.ApiHttpClient.getHttpResponse;
 public class ServiceFactory {
     private final String baseUrl;
 
+    /**
+     * Set the baseUrl for the AnnotationParser to use.
+     * @param baseUrl String URL address you want to send the request to
+     */
     public ServiceFactory(String baseUrl) {
         this.baseUrl = baseUrl;
     }

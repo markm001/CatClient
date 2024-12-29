@@ -32,6 +32,9 @@ public class CGsonHandler {
         gson = gsonBuilder.create();
     }
 
+    /**
+     * @return the GsonHandler Instance or create a new Instance before returning
+     */
     public static CGsonHandler getInstance() {
         if(INSTANCE == null) INSTANCE = new CGsonHandler();
 

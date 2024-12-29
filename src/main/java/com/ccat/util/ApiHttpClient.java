@@ -8,11 +8,16 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 /**
- * Send prepared request and receive response
+ * Send prepared request and receive response.
  */
 public class ApiHttpClient {
     private static final Logger logger = LoggerFactory.getLogger(ApiHttpClient.class);
 
+    /**
+     * Send the created request Object and receive an HttpResponse Object.
+     * @param request HttpRequest Object
+     * @return Response Object of type String
+     */
     public static HttpResponse<String> getHttpResponse(HttpRequest request) {
         try (java.net.http.HttpClient client = java.net.http.HttpClient.newHttpClient()) {
             logger.debug("Sending {}-Request to URI: {}", request.method(), request.uri().toString());

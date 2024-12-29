@@ -5,20 +5,18 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Properties;
+import java.util.*;
 
 /**
- * Parses the application.properties file provided in the resources.
- * TODO: Change this to a non-static class -> .properties file name should be provided by User
+ * Parses the specified .properties file provided in the resources.
  */
 public class PropertiesParser {
     private static final Logger logger = LoggerFactory.getLogger(PropertiesParser.class);
 
-    private static final Properties PROPERTIES = new Properties();
-    private static PropertiesParser INSTANCE;
+    private static final Map<String,PropertiesParser> parserInstance = new HashMap<>();
+    private final Properties PROPERTIES = new Properties();
 
-    private PropertiesParser() {
-        String propertiesFileName = "application.properties";
+    private PropertiesParser(String propertiesFileName) {
         try(InputStream input =
                     PropertiesParser.class.getClassLoader().getResourceAsStream(propertiesFileName)) {
             PROPERTIES.load(input);
@@ -29,13 +27,23 @@ public class PropertiesParser {
         }
     }
 
+    /**
+     * Returns the property if found within the Parser Instance
+     * @param property Key value
+     * @return Property associated with the specified key
+     */
     public String getProperty(String property) {
         return PROPERTIES.getProperty(property);
     }
 
-    public static PropertiesParser getInstance() {
-        if(INSTANCE == null) INSTANCE = new PropertiesParser();
+    /**
+     * Returns the Parser Instance associated with the specified filename
+     * @param propertiesFileName filename of the properties file
+     * @return Parser Instance containing the parsed properties
+     */
+    public static PropertiesParser getInstance(String propertiesFileName) {
+        parserInstance.putIfAbsent(propertiesFileName, new PropertiesParser(propertiesFileName));
 
-        return INSTANCE;
+        return parserInstance.get(propertiesFileName);
     }
 }
