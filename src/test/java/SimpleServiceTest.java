@@ -1,8 +1,10 @@
 import com.ccat.annotation.AnnotationData;
 import com.ccat.response.Response;
 import com.ccat.service.ServiceFactory;
+import com.ccat.service.SimpleRequest;
 import com.ccat.service.SimpleService;
 import com.ccat.util.ApiHttpClient;
+import com.ccat.util.CGsonHandler;
 import com.ccat.util.HttpRequestBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +15,6 @@ import util.ResponseBuilder;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.mockStatic;
@@ -63,31 +64,34 @@ public class SimpleServiceTest {
     @Test
     void test_postCreateResourceOverProxy_returnStringResponse() {
         //given
-        URI uri = URI.create(BASEURL + "posts/1");
-        Optional<String> requestBody = Optional.of("123");
-        AnnotationData annotationData = new AnnotationData("POST", uri, requestBody);
-        HttpRequest request = HttpRequestBuilder.build(
-                "", annotationData.httpMethod(),annotationData.uriTemplate(),null);
+        URI uri = URI.create(BASEURL + "posts");
 
-        String responseBody = "TEST";
+        SimpleRequest requestBody = new SimpleRequest("abc");
+        String body = CGsonHandler.getInstance().toJson(requestBody, SimpleRequest.class);
+
+        HttpRequest request = HttpRequestBuilder.build(
+                "","POST",uri,body);
+
+        String expectedBody = "TEST";
         int responseCode = 200;
 
         try (MockedStatic<ApiHttpClient> mock = mockStatic(ApiHttpClient.class)) {
             mock.when(() ->
                     ApiHttpClient.getHttpResponse(request)
             ).thenReturn(
-                    new ResponseBuilder(responseCode,request,request.headers(),responseBody,uri)
+                    new ResponseBuilder(responseCode,request,request.headers(),expectedBody,uri)
             );
+
             // when
-            Response<String> response = service.getResponse().execute();
-            String body = response.body();
+            Response<String> response = service.createPost(requestBody).execute();
+            String returnedBody = response.body();
 
             logger.debug(response.toString());
 
             // then
-            assertThat(body).isNotNull();
+            assertThat(returnedBody).isNotNull();
             assertThat(response.statusCode()).isEqualTo(responseCode);
-            assertThat(response.body()).isEqualTo(responseBody);
+            assertThat(response.body()).isEqualTo(expectedBody);
         }
     }
 }

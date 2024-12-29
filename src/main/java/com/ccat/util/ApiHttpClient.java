@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
@@ -19,7 +20,7 @@ public class ApiHttpClient {
      * @return Response Object of type String
      */
     public static HttpResponse<String> getHttpResponse(HttpRequest request) {
-        try (java.net.http.HttpClient client = java.net.http.HttpClient.newHttpClient()) {
+        try (HttpClient client = HttpClient.newHttpClient()) {
             logger.debug("Sending {}-Request to URI: {}", request.method(), request.uri().toString());
 
             return client.send(request, HttpResponse.BodyHandlers.ofString());
