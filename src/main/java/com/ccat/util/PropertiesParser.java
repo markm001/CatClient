@@ -40,8 +40,9 @@ public class PropertiesParser {
      * Returns the Parser Instance associated with the specified filename
      * @param propertiesFileName filename of the properties file
      * @return Parser Instance containing the parsed properties
+     * @throws NullPointerException if file could not be parsed
      */
-    public static PropertiesParser getInstance(String propertiesFileName) {
+    public static PropertiesParser getInstance(String propertiesFileName) throws NullPointerException {
         parserInstance.putIfAbsent(propertiesFileName, new PropertiesParser(propertiesFileName));
 
         return parserInstance.get(propertiesFileName);
