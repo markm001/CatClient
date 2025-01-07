@@ -1,5 +1,5 @@
 # CatClient 
-[![Build](https://img.shields.io/github/actions/workflow/status/markm001/CatClient/workflow.yml?branch=master)](https://github.com/markm001/CatClient/actions)
+[![Build](https://img.shields.io/github/actions/workflow/status/markm001/CatClient/run-tests.yml?branch=master)](https://github.com/markm001/CatClient/actions)
 
 A lightweight API Client with minimal dependencies, which supports
 several Request Methods, such as: GET, POST and DELETE.
