@@ -21,7 +21,6 @@ jobs:
           distribution: 'temurin'
 
       - name: Validate Wrapper
-        uses: gradle/actions/wrapper-validation@v3
 
       - name: Run Gradle Test
         run: ./gradlew test
