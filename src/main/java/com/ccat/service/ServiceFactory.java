@@ -9,6 +9,7 @@ import com.ccat.util.HttpRequestBuilder;
 import java.lang.reflect.Proxy;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Map;
 
 import static com.ccat.util.ApiHttpClient.getHttpResponse;
 
@@ -28,7 +29,7 @@ public class ServiceFactory {
 
 
     @SuppressWarnings({"unchecked"})
-    public <T> T createService(String header, Class<T> serviceClass) {
+    public <T> T createService(Map<String,String> headers, Class<T> serviceClass) {
         return (T) Proxy.newProxyInstance(
                 serviceClass.getClassLoader(),
                 new Class<?>[]{serviceClass},
@@ -37,7 +38,7 @@ public class ServiceFactory {
 
                     return new Call<>(() -> {
                         HttpRequest request = HttpRequestBuilder.build(
-                                header,
+                                headers,
                                 annotationData.httpMethod(),
                                 annotationData.uriTemplate(),
                                 annotationData.requestBody().orElse(null));

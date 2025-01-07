@@ -11,11 +11,16 @@ import java.lang.reflect.Method;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.nio.ByteBuffer;
+import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class AnnotationParserTest {
     private final String BASEURL = "https://api.cc4t.com/";
+    private final Map<String,String> headers = Map.of(
+            "Content-Type","application/json",
+            "Authorization","123"
+    );
 
     @Test
     public void test_getRequest_returnGetRequestObject() throws NoSuchMethodException {
@@ -27,7 +32,7 @@ public class AnnotationParserTest {
         AnnotationData annotationData = AnnotationParser.parseAnnotationData(method, BASEURL, args);
 
         //when
-        HttpRequest request = HttpRequestBuilder.build(auth,
+        HttpRequest request = HttpRequestBuilder.build(headers,
                 annotationData.httpMethod(),annotationData.uriTemplate(),annotationData.requestBody().orElse(null));
 
         //then
@@ -54,7 +59,7 @@ public class AnnotationParserTest {
         AnnotationData annotationData = AnnotationParser.parseAnnotationData(method, BASEURL, args);
 
         //when
-        HttpRequest request = HttpRequestBuilder.build(auth,
+        HttpRequest request = HttpRequestBuilder.build(headers,
                 annotationData.httpMethod(),annotationData.uriTemplate(),annotationData.requestBody().orElse(null));
 
         //then
@@ -88,7 +93,7 @@ public class AnnotationParserTest {
         AnnotationData annotationData = AnnotationParser.parseAnnotationData(method, BASEURL, args);
 
         //when
-        HttpRequest request = HttpRequestBuilder.build(auth,
+        HttpRequest request = HttpRequestBuilder.build(headers,
                 annotationData.httpMethod(),annotationData.uriTemplate(),annotationData.requestBody().orElse(null));
 
         //then

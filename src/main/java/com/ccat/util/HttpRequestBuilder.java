@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
+import java.util.Map;
 
 /**
  * Creates an HttpRequest Object from the provided annotation data
@@ -12,15 +13,14 @@ import java.net.http.HttpRequest;
 public class HttpRequestBuilder {
     private static final Logger logger = LoggerFactory.getLogger(HttpRequestBuilder.class);
 
-    public static HttpRequest build(String auth, String method, URI uri, String body) {
+    public static HttpRequest build(Map<String,String> headers, String method, URI uri, String body) {
         HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
-                .uri(uri)
-                .header("Authorization", auth)
-                .header("Content-Type", "application/json");
+                .uri(uri);
 
+        setHeaders(requestBuilder, headers);
         setRequestMethod(method, body, requestBuilder);
 
-        logger.debug("Constructing {}-Request with body {} and header {}", method, body, auth);
+        logger.debug("Constructing {}-Request with body {} and header {}", method, body, headers);
 
         return requestBuilder.build();
     }
@@ -40,5 +40,9 @@ public class HttpRequestBuilder {
             case "DELETE" -> requestBuilder.DELETE();
             case null, default -> throw new IllegalArgumentException("Unsupported HTTP method: " + method);
         }
+    }
+
+    private static void setHeaders(HttpRequest.Builder builder, Map<String,String> headers) {
+        headers.forEach(builder::header);
     }
 }

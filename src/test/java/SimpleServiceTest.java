@@ -15,6 +15,7 @@ import util.ResponseBuilder;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
+import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.mockStatic;
@@ -24,10 +25,11 @@ public class SimpleServiceTest {
 
     private final String BASEURL = "https://api.cc4t.com/";
     private SimpleService service;
+    private final Map<String,String> headers = Map.of("Content-Type","application/json");
 
     @BeforeEach
     void setUp() {
-        service = new ServiceFactory(BASEURL).createService("", SimpleService.class);
+        service = new ServiceFactory(BASEURL).createService(headers, SimpleService.class);
     }
 
     @Test
@@ -36,7 +38,7 @@ public class SimpleServiceTest {
         URI uri = URI.create(BASEURL + "posts/1");
         AnnotationData annotationData = new AnnotationData("GET", uri, null);
         HttpRequest request = HttpRequestBuilder.build(
-                "", annotationData.httpMethod(),annotationData.uriTemplate(),null);
+                headers, annotationData.httpMethod(),annotationData.uriTemplate(),null);
 
         String responseBody = "TEST";
         int responseCode = 200;
@@ -70,7 +72,7 @@ public class SimpleServiceTest {
         String body = CGsonHandler.getInstance().toJson(requestBody, SimpleRequest.class);
 
         HttpRequest request = HttpRequestBuilder.build(
-                "","POST",uri,body);
+                headers,"POST",uri,body);
 
         String expectedBody = "TEST";
         int responseCode = 200;
