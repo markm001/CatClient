@@ -11,6 +11,7 @@ permissions:
   contents: read
   actions: read
   checks: write
+  packages: write
 
 jobs:
   run-tests:
@@ -38,3 +39,7 @@ jobs:
           path: '**/build/test-results/test/TEST*.xml'
           reporter: java-junit
           fail-on-error: true
+
+      - run: gradle publish
+        env:
+          TOKEN: ${{ secrets.PKG_TOKEN }}

@@ -30,12 +30,19 @@ tasks.test {
 }
 
 publishing {
-    publications.create<MavenPublication>("libs") {
-        groupId = "com.ccat"
-        artifactId = "c4tclient"
-        version = "1.0"
+//    publications.create<MavenPublication>("libs") {
+//        groupId = "com.ccat"
+//        artifactId = "c4tclient"
+//        version = "1.0"
+//
+//        from(components["java"])
+//    }
+//    repositories.maven("/tmp/utils")
 
-        from(components["java"])
+    repositories.maven("https://maven.pkg.github.com/markm001/CatClient") {
+        credentials {
+            username = System.getenv("USER")
+            password = System.getenv("TOKEN")
+        }
     }
-    repositories.maven("/tmp/utils")
 }
