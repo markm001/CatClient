@@ -17,7 +17,7 @@ Alternatively, see the section containing the desired future improvements.
 ### Project Setup
 
 Download the latest available JAR from the releases.
-As an alternative, pull the repository and add the following lines to the build.gradle file:
+As an alternative, pull the repository and edit the following lines in the build.gradle file:
 
 ```
 plugins {
