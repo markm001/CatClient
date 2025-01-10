@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.ccat"
-version = "1.0"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
@@ -31,7 +31,8 @@ tasks.test {
 
 publishing {
     publications {
-        register<MavenPublication>("ccat") {
+        register<MavenPublication>("gpr") {
+            artifactId = "catclient"
             from(components["java"])
         }
     }
