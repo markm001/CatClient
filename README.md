@@ -18,12 +18,12 @@ Alternatively, see the section containing the desired future improvements.
 
 Download the latest available JAR from the releases.
 
-Or import the package:
+Or use the package:
 ```
 <dependency>
   <groupId>com.ccat</groupId>
   <artifactId>catclient</artifactId>
-  <version>1.0.1</version>
+  <version>1.0</version>
 </dependency>
 ```
 
@@ -38,7 +38,7 @@ publishing {
     publications.create<MavenPublication>("libs") {
         groupId = "com.ccat"
         artifactId = "catclient"
-        version = "1.0.1"
+        version = "1.0"
 
         from(components["java"])
     }
