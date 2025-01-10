@@ -30,6 +30,11 @@ tasks.test {
 }
 
 publishing {
+    publications {
+        register<MavenPublication>("ccat") {
+            from(components["java"])
+        }
+    }
     repositories {
         maven {
             name = "GitHubPackages"
